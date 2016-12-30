@@ -23,7 +23,7 @@
     x?html
   (?=\\s|:|$)
 '''
-'name': 'HTML'
+'name': 'HTML 2'
 'patterns': [
   {
     'begin': '(<)([a-zA-Z0-9:-]++)(?=[^>]*></\\2>)'
@@ -349,6 +349,27 @@
     'match': '<>'
     'name': 'invalid.illegal.incomplete.html'
   }
+  {
+    'begin': '({{)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.interpolation.begin.angular'
+    'end': '(}})'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.interpolation.end.angular'
+    'contentName': 'value.interpolation.angular.html'
+    'patterns': [
+      {
+        'match': '([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)'
+        'captures':
+          '1':
+            'name': 'entity.object.angular.html'
+          '2':
+            'name': 'entity.member.angular.html'
+      }
+    ]
+  }
 ]
 'repository':
   'embedded-code':
@@ -509,6 +530,9 @@
         'include': '#tag-id-attribute'
       }
       {
+        'include': '#angular-attribute'
+      }
+      {
         'include': '#tag-generic-attribute'
       }
       {
@@ -524,6 +548,34 @@
         'include': '#unquoted-attribute'
       }
     ]
+  'angular-attribute':
+    'begin': '(?<=[^=])\\b(ng-[a-zA-Z0-9:-]+)(?:=)(")'
+    'beginCaptures':
+      '1':
+        'name': 'entity.other.attribute-name.angular.html'
+      '2':
+        'name': 'punctuation.definition.string.begin.angular.html'
+    'end': '"'
+    'endCaptures':
+        '0':
+          'name': 'punctuation.definition.string.end.angular.html'
+    'contentName': 'string.quoted.double.angular.html'
+    'patterns': [
+      {
+        'include': '#angular-repeat'
+      }
+    ]
+  'angular-repeat':
+    'match': '([a-zA-Z0-9_]+) in (?:([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)|(\\[[a-zA-Z0-9\., ]+\\]))'
+    'captures':
+      '1':
+        'name': 'entity.object.scoped.angular.html'
+      '2':
+        'name': 'entity.object.controller.angular.html'
+      '3':
+        'name': 'entity.object.iterable.angular.html'
+      '4':
+        'name': 'entity.object.iterable.angular.html'
   'unquoted-attribute':
     'match': '(?<==)(?:[^\\s<>/\'"]|/(?!>))+'
     'name': 'string.unquoted.html'
