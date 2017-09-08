@@ -21,7 +21,7 @@
         <!-- ^ entity.name.tag.script.html -->
             <ul>
             <!-- <- text.embedded.html -->
-                <li ng-repeat="item in [1, 2, 3]">Item #{$index}</li>
+                <li ng-repeat="item in [1, 2, 3] | orderBy: 'value'">Item #{$index}</li>
                 <li ng-repeat="item in something.items">
                   {{item.name}}
                 </li>

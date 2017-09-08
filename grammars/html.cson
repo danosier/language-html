@@ -564,6 +564,12 @@
       {
         'include': '#angular-repeat'
       }
+      {
+        'match': '(\\|)'
+        'captures':
+          '1':
+            'name': 'entity.pipe.angular.html'
+      }
     ]
   'angular-repeat':
     'match': '([a-zA-Z0-9_]+) in (?:([a-zA-Z0-9_]+)\\.([a-zA-Z0-9_]+)|(\\[[a-zA-Z0-9\., ]+\\]))'
